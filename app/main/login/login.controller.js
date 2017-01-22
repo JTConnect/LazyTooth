@@ -7,7 +7,7 @@
 
     LoginController.$inject = ['$scope', '$state', 'AuthenticationService'];
 
-    function LoginController($scope, $state, AuthenticationService, ApplicationInsightsService) {
+    function LoginController($scope, $state, AuthenticationService) {
         var vm = this;
 
         vm.title = 'Login Controller';
@@ -27,7 +27,7 @@
             var userObject = {
                 grant_type: "password",
                 username: vm.userCredentails.username,
-                password: vm.userCredentails.password,
+                password: vm.userCredentails.password
             };
 
             vm.loginPromise = AuthenticationService.LoginUser(userObject);
@@ -37,7 +37,6 @@
             vm.loginPromise.then(function (data) {
                 $state.go('root.appLayout.dashboard');
             }).catch(function (err) {
-                ApplicationInsightsService.TrackException(err.error, "Login", { userName: userObject.username, errorDescription: err.error_description });                 
                 vm.displayError = true;
                 if ((err !== null) && err.error === "ad_error") {
                     vm.errorMessage = "You have entered the wrong username or password";

@@ -135,7 +135,7 @@
 
     function AuthenticationService(LoginService, localStorageService) {
         var self = this;
-        self.dataInStorage = ['authenticationData', 'flightBoardConfig'];
+        self.dataInStorage = ['authenticationData', 'Configuration'];
 
         var service = {
             LoginUser: loginUser,
@@ -151,8 +151,7 @@
                 setAuthenticationData('authenticationData', {
                     accessToken: data.access_token,
                     userName: data.UserName,
-                    accessTokenExpires: data[".expires"],
-                    userRoles: data.UserRoles.split(",")
+                    accessTokenExpires: data[".expires"]
                 });
             });
 
@@ -211,8 +210,8 @@
     angular
         .module('app')
         .constant("AuthenticationSettings", {
-            AuthenticationAPI: 'http://signetapi-development.trafficmanager.net/',
-            ResourcesAPI: 'http://signetapi-development.trafficmanager.net/'
+            AuthenticationAPI: 'https://resourceserver.herokuapp.com/login/',
+            ResourcesAPI: 'https://resourceserver.herokuapp.com/login/'
         });
 })();
 (function () {
@@ -224,21 +223,21 @@
 
     function CurrentUserService(localStorageService, AuthenticationService) {
         var self = this;
-        self.flightBoardConfigKey = 'flightBoardConfig';
+        self.ConfigKey = 'Configuration';
 
         return {
-            GetFlightBoardConfiguration: getFlightBoardConfiguration,
-            SetFlightBoardConfiguration: setFlightBoardConfiguration,
+            GetConfiguration: getConfiguration,
+            SetConfiguration: setConfiguration,
             GetCurrentUserData: getCurrentUserData
 
         };
 
-        function setFlightBoardConfiguration(obj) {
-            localStorageService.set(self.flightBoardConfigKey, obj);
+        function setConfiguration(obj) {
+            localStorageService.set(self.ConfigKey, obj);
         }
 
-        function getFlightBoardConfiguration() {
-            return localStorageService.get(self.flightBoardConfigKey);
+        function getConfiguration() {
+            return localStorageService.get(self.ConfigKey);
         }
 
         function getCurrentUserData() {
@@ -451,6 +450,8 @@
 
 
 })();
+
+/*
 (function () {
     angular
         .module('app')
@@ -484,7 +485,9 @@
         }
 
     }
-})(); 
+})();
+
+*/
 (function () {
     'use strict';
 
@@ -621,7 +624,7 @@ angular.module('app').value('cgBusyDefaults', {
             url: '/dashboard',
             templateUrl: 'app/main/dashboard/dashboard.html',
             controller: 'DashboardController',
-            controllerAs: 'vm',
+            controllerAs: 'vm'
         })
         .state('root.appLayout.flightBoard', {
             url: '/flightboard',
@@ -700,35 +703,16 @@ angular.module('app').value('cgBusyDefaults', {
         .module('app')
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$scope', '$state', 'LookupService', 'CurrentUserService', 'ReportService', 'DateTimeService', 'ApplicationInsightsService'];
+    DashboardController.$inject = ['$scope', '$state', 'LookupService', 'CurrentUserService', 'DateTimeService'];
 
-    function DashboardController($scope, $state, LookupService, CurrentUserService, ReportService, DateTimeService, ApplicationInsightsService) {
+    function DashboardController($scope, $state, LookupService, CurrentUserService, DateTimeService) {
         /* jshint validthis:true */
         var vm = this;
         vm.title = 'Dashboard Controller';
-        vm.bases = [];
-        vm.displaySelect = false;
-        vm.selected = CurrentUserService.GetFlightBoardConfiguration();
-        vm.base = vm.selected; 
-        vm.currentUser = CurrentUserService.GetCurrentUserData('authenticationData');
-
-        vm.BaseSelected = baseSelected;
-        vm.NavigateTo = navigateTo;
-        vm.GenerateReservationReport = generateReservationReport; 
-
         activate();
 
         function activate() {
-            LookupService.FormatBases(function (err, res) {
-                if (err) {
-                    ApplicationInsightsService.TrackException(err.message, "GET CPA BASES (Dashboard)", { userName: vm.currentUser.userName, errorObject: err });
-                    console.log(err);
-                    return;
-                }
-                vm.bases = res;
-                ApplicationInsightsService.TrackEvent("Status: 200, Action: GET CPA BASES, handled: Dashboard");
-            });
-            setUp();
+
         }
 
         function navigateTo(route) {
@@ -738,8 +722,7 @@ angular.module('app').value('cgBusyDefaults', {
         }
 
         function baseSelected(item, model, label) {
-            CurrentUserService.SetFlightBoardConfiguration(model);
-            vm.base = model; 
+
         }
 
         function setUp() {
@@ -747,12 +730,6 @@ angular.module('app').value('cgBusyDefaults', {
                 vm.httpRequestPromise = args.httpPromise;
             });
         }
-
-        function generateReservationReport() {
-            var model = { baseId: vm.base.BaseId, startDateTime: DateTimeService.FormatMomentDateYear(), durationHours: 24 };
-            ReportService.GenerateReservationReport(model);
-        }
-
     }
 })();
 
@@ -1505,7 +1482,7 @@ angular.module('app').value('cgBusyDefaults', {
 
     LoginController.$inject = ['$scope', '$state', 'AuthenticationService'];
 
-    function LoginController($scope, $state, AuthenticationService, ApplicationInsightsService) {
+    function LoginController($scope, $state, AuthenticationService) {
         var vm = this;
 
         vm.title = 'Login Controller';
@@ -1525,7 +1502,7 @@ angular.module('app').value('cgBusyDefaults', {
             var userObject = {
                 grant_type: "password",
                 username: vm.userCredentails.username,
-                password: vm.userCredentails.password,
+                password: vm.userCredentails.password
             };
 
             vm.loginPromise = AuthenticationService.LoginUser(userObject);
@@ -1535,7 +1512,6 @@ angular.module('app').value('cgBusyDefaults', {
             vm.loginPromise.then(function (data) {
                 $state.go('root.appLayout.dashboard');
             }).catch(function (err) {
-                ApplicationInsightsService.TrackException(err.error, "Login", { userName: userObject.username, errorDescription: err.error_description });                 
                 vm.displayError = true;
                 if ((err !== null) && err.error === "ad_error") {
                     vm.errorMessage = "You have entered the wrong username or password";
@@ -1567,11 +1543,14 @@ angular.module('app').value('cgBusyDefaults', {
         };
 
         function postLogin(userObject) {
+            var user = {userObject: {email: userObject.username , password: userObject.password}};
+
+
             return HttpRequestService.Go({
                 method: 'POST',
-                url: AuthenticationSettings.AuthenticationAPI + 'token',
-                data: "grant_type=password&username=" + userObject.username + "&password=" + userObject.password + "&aduser=" + true,
-                headers: { 'Content-type': 'application/x-www-form-urlencoded' }
+                url: AuthenticationSettings.AuthenticationAPI,
+                data: user,
+                headers: { 'Content-type': 'application/json' } //
             });
         }
     }

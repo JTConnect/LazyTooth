@@ -1,4 +1,6 @@
-﻿(function () {
+﻿
+/*
+(function () {
     angular
         .module('app')
         .factory('ApplicationInsightsService', ApplicationInsightsService);
@@ -31,4 +33,6 @@
         }
 
     }
-})(); 
+})();
+
+*/

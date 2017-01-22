@@ -7,21 +7,21 @@
 
     function CurrentUserService(localStorageService, AuthenticationService) {
         var self = this;
-        self.flightBoardConfigKey = 'flightBoardConfig';
+        self.ConfigKey = 'Configuration';
 
         return {
-            GetFlightBoardConfiguration: getFlightBoardConfiguration,
-            SetFlightBoardConfiguration: setFlightBoardConfiguration,
+            GetConfiguration: getConfiguration,
+            SetConfiguration: setConfiguration,
             GetCurrentUserData: getCurrentUserData
 
         };
 
-        function setFlightBoardConfiguration(obj) {
-            localStorageService.set(self.flightBoardConfigKey, obj);
+        function setConfiguration(obj) {
+            localStorageService.set(self.ConfigKey, obj);
         }
 
-        function getFlightBoardConfiguration() {
-            return localStorageService.get(self.flightBoardConfigKey);
+        function getConfiguration() {
+            return localStorageService.get(self.ConfigKey);
         }
 
         function getCurrentUserData() {

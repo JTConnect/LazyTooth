@@ -9,7 +9,7 @@
 
     function AuthenticationService(LoginService, localStorageService) {
         var self = this;
-        self.dataInStorage = ['authenticationData', 'flightBoardConfig'];
+        self.dataInStorage = ['authenticationData', 'Configuration'];
 
         var service = {
             LoginUser: loginUser,
@@ -25,8 +25,7 @@
                 setAuthenticationData('authenticationData', {
                     accessToken: data.access_token,
                     userName: data.UserName,
-                    accessTokenExpires: data[".expires"],
-                    userRoles: data.UserRoles.split(",")
+                    accessTokenExpires: data[".expires"]
                 });
             });
 

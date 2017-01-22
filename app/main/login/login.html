@@ -1,18 +1,13 @@
 ﻿<div class="container">
-
     <div class="materialContainer">
         <div class="materialHeader">
             Bella Check-In
         </div>
-
-
         <div class="materialContent">
             <div class="row">
                 <i class="fa fa-info-circle" aria-hidden="true"></i> Please contact JTConnectSoftware if you have problems signing in.
             </div>
-
-
-            <form>
+            <form name="vm.loginForm" novalidate novalidate>
                 <div class="form-group">
                     <label>Username</label>
                     <input type="text" name="userName" placeholder="" class="form-control" ng-model="vm.userCredentails.username" required />
@@ -22,10 +17,14 @@
                     <input type="password" name="password" placeholder="" class="form-control" ng-model="vm.userCredentails.password" required>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-lg bella w-100">Log In</button>
+                    <button class="btn btn-lg bella w-100" ng-disabled="vm.loginForm.$invalid" ng-click="vm.loginUser()">Log In</button>
+                </div>
+                <div ng-show="vm.displayError" class="form-group">
+                    <div class="errorNotification">
+                        <i class="fa fa-exclamation-circle"></i> {{vm.errorMessage}}
+                    </div>
                 </div>
             </form>
-
 
         </div>
     </div>

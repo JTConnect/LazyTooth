@@ -39,7 +39,7 @@
             url: '/dashboard',
             templateUrl: 'app/main/dashboard/dashboard.html',
             controller: 'DashboardController',
-            controllerAs: 'vm',
+            controllerAs: 'vm'
         })
         .state('root.appLayout.flightBoard', {
             url: '/flightboard',

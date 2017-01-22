@@ -13,11 +13,14 @@
         };
 
         function postLogin(userObject) {
+            var user = {userObject: {email: userObject.username , password: userObject.password}};
+
+
             return HttpRequestService.Go({
                 method: 'POST',
-                url: AuthenticationSettings.AuthenticationAPI + 'token',
-                data: "grant_type=password&username=" + userObject.username + "&password=" + userObject.password + "&aduser=" + true,
-                headers: { 'Content-type': 'application/x-www-form-urlencoded' }
+                url: AuthenticationSettings.AuthenticationAPI,
+                data: user,
+                headers: { 'Content-type': 'application/json' } //
             });
         }
     }
