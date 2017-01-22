@@ -1,0 +1,76 @@
+﻿<div class="heightMin-100 heightMax-400 scroll-y scroll-x-hidden ">
+    <table class="table table-responsive flightBoard">
+        <thead>
+            <tr>
+                <th>Stat</th>
+                <th>Type</th>
+                <th>Tail</th>
+                <th>Flight</th>
+                <th>Orig</th>
+                <th>Cust</th>
+                <th>ETA</th>
+                <th>ATA</th>
+                <th>QT</th>
+                <th>Pax</th>
+                <th>Pk</th>
+                <th>Trans</th>
+                <th>Fuel</th>
+                <th>Qty Req</th>
+                <th>C</th>
+                <th>I</th>
+                <th>N</th>
+                <th>Lav</th>
+                <th>Water</th>
+                <th>GPU</th>
+                <th>Cat</th>
+                <th>Deice</th>
+                <th>Notes</th>
+                <th>POL</th>
+                <th>ETD</th>
+                <th>ATD</th>
+                <th>DEST</th>
+                <th>PAX</th>
+                <th>INV</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="obj in vm.reservations" class="transport" ng-class="{transportCategory: obj.transportCategory, flagged: obj.complete}">
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.SignatureStatus}}</td>
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.AircraftType}}</td>
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.TailNumber}}</td>
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.FlightNumber}}</td>
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.ArrivalFlightInformation.BaseId}}</td>
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.CustomsRequiredInbound}}</td>
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.ArrivalFlightInformation.EstimatedFlightDateTime}}</td>
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.ArrivalFlightInformation.FlightDateTime}}</td>
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}"><span ng-if="obj.QuickTurn == true">QT</span></td>  <!--ng-class="{quickTurn: obj.QuickTurn}" this is for same day flights table-->
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.ArrivalFlightInformation.PassengerCount}}</td>
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.Parking}}</td>
+                <td>{{obj.AllTransportations.Text}}</td>
+                <td ng-class="{ outstanding: (obj.Fuel.Status == 1 || obj.Fuel.Status == 8) && obj.ArrivalFlightInformation.FlightDateTime !== null,   complete: obj.Fuel.Status == 16 && obj.ArrivalFlightInformation.FlightDateTime !== null }">{{obj.Fuel.ProductDescription}}</td>
+                <td ng-class="{ outstanding: (obj.Fuel.Status == 1 || obj.Fuel.Status == 8) && obj.ArrivalFlightInformation.FlightDateTime !== null,   complete: obj.Fuel.Status == 16 && obj.ArrivalFlightInformation.FlightDateTime !== null }">{{obj.Fuel.Quantity}}</td>
+                <td ng-class="{ outstanding: (obj.Coffee.Status == 1 || obj.Coffee.Status == 8) && obj.ArrivalFlightInformation.FlightDateTime !== null, complete: obj.Coffee.Status == 16 && obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.Coffee}}</td>
+                <td ng-class="{ outstanding: (obj.Ice.Status == 1 || obj.Ice.Status == 8) && obj.ArrivalFlightInformation.FlightDateTime !== null, complete: obj.Ice.Status == 16 && obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.Ice}}</td>
+                <td ng-class="{ outstanding: (obj.Newspaper.Status == 1 || obj.Newspaper.Status == 8) && obj.ArrivalFlightInformation.FlightDateTime !== null,  complete: obj.Newspaper.Status == 16 && obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.Newspaper}}</td>
+                <td ng-class="{ outstanding: (obj.Lav.Status == 1 || obj.Lav.Status == 8) && obj.ArrivalFlightInformation.FlightDateTime !== null, complete: obj.Lav.Status == 16 && obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.Lav.Quantity}}</td>
+                <td ng-class="{ outstanding: (obj.Water.Status == 1 || obj.Water.Status == 8) && obj.ArrivalFlightInformation.FlightDateTime !== null, complete: obj.Water.Status == 16 && obj.ArrivalFlightInformation.FlightDateTime !== null}"><span ng-if="obj.Water.Quantity > 0">Y</span></td>
+                <td ng-class="{ outstanding: (obj.Gpu.Status == 1 || obj.Gpu.Status == 8) && obj.ArrivalFlightInformation.FlightDateTime !== null, complete: obj.Gpu.Status == 16 && obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.Gpu.Quantity}}</td>
+                <td ng-class="{ outstanding: (obj.Cater.Status == 1 || obj.Cater.Status == 8) && obj.ArrivalFlightInformation.FlightDateTime !== null, complete: obj.Cater.Status == 16 && obj.ArrivalFlightInformation.FlightDateTime !== null}"><span ng-if="obj.CrewCatering !== null || obj.PassengerCatering !== null">Y</span></td>
+                <td ng-class="{ outstanding: (obj.Deice.Status == 1 || obj.Deice.Status == 8) && obj.ArrivalFlightInformation.FlightDateTime !== null, complete: obj.Deice.Status == 16 && obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.Deice.Quantity}}</td>
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}" class="wMin50 wMax250"><div class="flight-board-notes" uib-tooltip="{{obj.CompanyName}} - {{obj.Comments}}" tooltip-is-open="tooltipIsOpen" tooltip-placement="top"><span class="company-name">{{obj.CompanyName}} - </span> {{obj.Comments}}</div> </td>
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.PullOnLine}}</td> <!-- need-->
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.DepartureFlightInformation.EstimatedFlightDateTime}}</td>
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.DepartureFlightInformation.FlightDateTime}}</td>
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.DepartureFlightInformation.BaseId}}</td>
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}">{{obj.DepartureFlightInformation.PassengerCount}}</td>
+                <td ng-class="{ graySection: obj.ArrivalFlightInformation.FlightDateTime !== null}"><i class="{{obj.Invoice}}"></i></td> <!--need transaction-->
+            </tr>
+        </tbody>
+    </table>
+    <div ng-if="vm.reservations.length === 0">No records available for the date selected.</div>
+</div>
+<div class="row" ng-if="vm.reservations.length > 0">
+    <div class="col-xs-12">
+        <span class="pull-right ptop-5">Showing {{vm.reservations.length}} records.</span>
+    </div>
+</div>

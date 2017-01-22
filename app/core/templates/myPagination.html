@@ -1,0 +1,11 @@
+﻿<div ng-show="vm.size > 0" class="row">
+    <div class="col-sm-6 col-xs-6 positionForNavigationCount">
+        {{vm.begin}} - {{vm.end}} of {{vm.size}} items
+    </div>
+    <div class="col-sm-6  positionForNavigation">
+        <uib-pagination class="pull-right" total-items="vm.size" ng-model="vm.currentPage" ng-change="vm.PageChanged()" items-per-page="vm.itemsPerPage"></uib-pagination>
+    </div>
+</div>
+<div ng-show="vm.size == 0">
+    <p>There are no records at this time.</p>
+</div>

@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <title>Bella Check-In</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <!--3rd party CSS-->
+
+    <link href="Content/css/bootstrap/bootstrap.css" rel="stylesheet" />
+<!--    <link href="Content/css/font-awesome.min.css" rel="stylesheet" /> -->
+    <link href="Content/css/angular-busy.min.css" rel="stylesheet" />
+    <link href="Content/css/angular-loading-bar.css" rel="stylesheet" />
+
+    <!--Custom-->
+    <link href="Content/css/Site.css" rel="stylesheet" />
+    <link href="Content/css/atomic.css" rel="stylesheet" />
+    <link href="Content/css/side-nav.css" rel="stylesheet" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.1/css/font-awesome.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.1/fonts/fontawesome-webfont.ttf" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.1/fonts/fontawesome-webfont.woff"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.1/fonts/fontawesome-webfont.woff2"  />
+
+
+</head>
+<body ng-controller="IndexController as vm" cg-busy="vm.httpRequestPromise">
+    <div ui-view="rootLayout"></div>
+
+    <!-- 3rd Party JS References -->
+    <script src="Scripts/angular/angular.min.js"></script>
+    <script src="Scripts/jquery/jquery.min.js"></script>
+    <script src="Scripts/bootstrap/bootstrap.min.js"></script>
+    <script src="Scripts/ui-router/ui-router.min.js" type="text/javascript"></script>
+    <script src="Scripts/bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="Scripts/angular-local/angular-local-storage.min.js"></script>
+    <script src="Scripts/angular-animate/angular-animate.min.js"></script>
+    <script src="Scripts/angular-loading/angular-loading-bar.js"></script>
+    <script src="Scripts/angular-busy/angular-busy.min.js"></script>
+    <script src="Scripts/moment/moment.min.js"></script>
+
+    <script src="dist/js/allminified.min.js" type="text/javascript"></script>
+
+</body>
+</html>

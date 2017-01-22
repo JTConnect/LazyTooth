@@ -1,0 +1,63 @@
+﻿<style>
+    body {
+        /*background: white;*/
+    }
+</style>
+<div class="container">
+    <div class="loginBox loginContainer">
+        <!--<div class="text-center text-white"><h1>SIGnet FlightBoard</h1></div>-->
+        <div class="text-center text-white"><h2>Enter Passcode</h2></div>
+        
+        <div class="row">
+            <div class="col-sm-4 col-xs-4"></div>
+            <div class="col-sm-4 col-xs-4">
+                <div class="passcode-list">
+                    <ul>
+                        <li><div ng-class="{'active': vm.smallCircles[0]}" class="circle small-circle"></div></li>
+                        <li><div ng-class="{'active': vm.smallCircles[1]}" class="circle small-circle"></div></li>
+                        <li><div ng-class="{'active': vm.smallCircles[2]}" class="circle small-circle"></div></li>
+                        <li><div ng-class="{'active': vm.smallCircles[3]}" class="circle small-circle"></div></li>
+                        <li><div ng-class="{'active': vm.smallCircles[4]}" class="circle small-circle"></div></li>
+                        <li><div ng-class="{'active': vm.smallCircles[5]}" class="circle small-circle"></div></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-4 col-xs-4"></div>
+        </div>
+
+        <div>
+            <table class="passcode passcode-center cursor-pointer">
+                <tr>
+                    <td><div ng-click="vm.ClickedCircle('one'); $event.stopPropagation()" ng-class="{'active': vm.one}" class="circle">1</div></td>
+                    <td><div ng-click="vm.ClickedCircle('two'); $event.stopPropagation()" ng-class="{'active': vm.two}" class="circle">2</div></td>
+                    <td><div ng-click="vm.ClickedCircle('three'); $event.stopPropagation()" ng-class="{'active': vm.three}" class="circle">3</div></td>
+                </tr>
+                <tr>
+                    <td><div ng-click="vm.ClickedCircle('four'); $event.stopPropagation()" ng-class="{'active': vm.four}" class="circle">4</div></td>
+                    <td><div ng-click="vm.ClickedCircle('five'); $event.stopPropagation()" ng-class="{'active': vm.five}" class="circle">5</div></td>
+                    <td><div ng-click="vm.ClickedCircle('six'); $event.stopPropagation()" ng-class="{'active': vm.six}" class="circle">6</div></td>
+                </tr>
+                <tr>
+                    <td><div ng-click="vm.ClickedCircle('seven'); $event.stopPropagation()" ng-class="{'active': vm.seven}" class="circle">7</div></td>
+                    <td><div ng-click="vm.ClickedCircle('eight'); $event.stopPropagation()" ng-class="{'active': vm.eight}" class="circle">8</div></td>
+                    <td><div ng-click="vm.ClickedCircle('nine'); $event.stopPropagation()" ng-class="{'active': vm.nine}" class="circle">9</div></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><div ng-click="vm.ClickedCircle('zero'); $event.stopPropagation()" ng-class="{'active': vm.zero}" class="circle">0</div></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-left sigBlueColor">SIGnet FlightBoard</div>
+                <div class="pull-right text-white cursor-pointer" ng-click="vm.DeletePasscode()">Delete</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

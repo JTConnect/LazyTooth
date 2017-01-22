@@ -1,0 +1,60 @@
+﻿
+<nav class="navbar navbar-default navbar-fixed-top" style="background-color:#686e75">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div ng-click="vm.Open()" style="color: white" class="navbar-brand cursor-pointer">FlightBoard</div>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a></a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-user"></i> {{vm.userName}} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <!--<li><a>View Status</a></li>
+                        <li><a>Account Configuration</a></li>-->
+                        <li class="cursor-pointer"><a ng-click="vm.Logout()">Log out <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
+                        <!--<li role="separator" class="divider"></li>-->
+                    </ul>
+                </li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+<div id="wrapper" ng-class="{'toggled': vm.isSideNavClosed}">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li ng-class="{active: vm.state.is('root.appLayout.dashboard')}">
+                <a ui-sref="root.appLayout.dashboard"><i class="fa fa-dashboard"></i> Dashboard</a>
+            </li>
+            <li class="cursor-pointer" ng-class="{active: vm.state.is('root.appLayout.flightBoard')}">
+                <a ng-click="vm.NavigateTo('root.appLayout.flightBoard')"><i class="fa fa-plane"></i> FlightBoard</a>
+            </li>
+            <li class="cursor-pointer" ng-class="{active: (vm.state.is('root.appLayout.report') || vm.state.is('root.appLayout.report.reservations'))}">
+                <a ng-click="vm.NavigateTo('root.appLayout.report')"><i class="fa fa-file-text-o"></i> Reports</a>
+            </li>
+            <li>
+                <a ui-sref="root.appLayout.flightBoard"><i class="fa fa-registered"></i> Reservations</a>
+            </li>
+            <li>
+                <a ui-sref="root.appLayout.flightBoard"><i class="fa fa-globe"></i> Services</a>
+            </li>
+            <li>
+                <a ui-sref="root.appLayout.flightBoard"><i class="fa fa-newspaper-o"></i> News</a>
+            </li>
+        </ul>
+    </div>
+    <div id="page-content-wrapper">
+        <div class="container-fluid" ui-view=""></div>
+    </div>
+</div>
+
+
+
+
