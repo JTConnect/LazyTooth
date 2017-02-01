@@ -1,5 +1,5 @@
 ﻿/// <binding ProjectOpened='watch' />
-//Include gulp
+//Includ
 var gulp = require('gulp');
 
 //Include plugins 
@@ -26,13 +26,11 @@ var scripts = ['app/*js',
       'app/main/*js',
       'app/main/application/*js',
       'app/main/dashboard/*js',
-      'app/main/flightBoard/*js',
       'app/main/index/*js',
       'app/main/login/*js',
       'app/main/simpleLogin/*js',
-      'app/main/rootLayout/*js',
-      'app/main/report/*js',
-      'app/main/report/reservations/*js'];
+      'app/main/checkin/*js',
+      'app/main/rootLayout/*js'];
 
 var allMinified = 'dist/js/allminified.min.js';
 var jsLocation = 'dist/js';
@@ -86,30 +84,9 @@ gulp.task('test', function (done) {
     }, done).start();
 });
 
+//....
 
 
-
-//Concatenate & minify js & version the final minified file. 
-//gulp.task('minifyRev', function () {
-//    return gulp.src(scripts)
-//        .pipe(sourcemaps.init())
-//        .pipe(concat('allfiles.js'))
-//        .pipe(gulp.dest('dist/js'))
-//        .pipe(rename('allminified.min.js'))
-//        .pipe(rev())
-//        .pipe(uglify())
-//        .pipe(sourcemaps.write('sourcemap'))
-//        .pipe(gulp.dest('dist/js'))
-//        .pipe(rev.manifest({ merge: true }))
-//        .pipe(gulp.dest('dist/js'))
-//});
-
-
-
-/*gulp.task('watch', function () {
-    gulp.watch(scripts, ['lint', 'minifyRev']);
-
-}); */
 
 
 

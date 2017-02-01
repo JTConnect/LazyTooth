@@ -1,0 +1,65 @@
+
+<div class="container">
+
+    <div class="question" ng-show="vm.showQuestion1">
+        <div class="questionContainer">
+            <div class="modernBox questionCard">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2>{{vm.question1.description}}</h2>
+                        <hr />
+                    </div>
+                    <div class="col-md-12">
+                        <input class="form-control input-lg " placeholder="Enter here.." ng-model="vm.question1Response" />
+                    </div>
+                    <div class="col-md-12 mTop-30 w100p">
+                        <button class="btn btn-lg bella" ng-click="vm.Next2()" style="width: 100%;">Next <i class="fa fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question" ng-show="vm.showQuestion2">
+        <div class="questionContainer">
+            <div class="modernBox questionCard">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2>{{vm.question2.description}}</h2>
+                        <hr />
+                    </div>
+                    <div class="col-md-12">
+                        <input class="form-control input-lg " placeholder="Enter here.." ng-model="vm.question2Response" />
+                    </div>
+                    <div class="col-md-12 mTop-30 w100p">
+                        <button class="btn btn-lg bella" ng-click="vm.Next3()" style="width: 100%;">Next <i class="fa fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question" ng-show="vm.showQuestion3">
+        <div class="questionContainer">
+            <div class="modernBox questionCard">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2>{{vm.question3.description}}</h2>
+                        <hr />
+                    </div>
+                    <div class="col-md-12">
+                        <select class="form-control input-lg " placeholder="Enter here.." ng-model="vm.question3Response" >
+                            <option>Gym</option>
+                            <option>Pool</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 mTop-30 w100p">
+                        <button class="btn btn-lg bella" ng-click="vm.Next4()" style="width: 100%;">Next <i class="fa fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

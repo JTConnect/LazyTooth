@@ -41,23 +41,17 @@
             controller: 'DashboardController',
             controllerAs: 'vm'
         })
-        .state('root.appLayout.flightBoard', {
-            url: '/flightboard',
-            templateUrl: 'app/main/flightBoard/flightBoard.html',
-            controller: 'FlightBoardController',
+        .state('root.appLayout.admin', {
+            url: '/admin',
+            templateUrl: 'app/main/admin/admin.html',
+            controller: 'AdminController',
             controllerAs: 'vm'
         })
-        .state('root.appLayout.report', {
-            url: '/report',
-            templateUrl: 'app/main/report/report.html',
-            controller: 'ReportController',
-            controllerAs: 'vm'
-        })
-        .state('root.appLayout.report.reservations', {
-            url: '/reservationsreport',
-            templateUrl: 'app/main/report/reservations/reservations.html',
-            controller: 'ReservationsReportController',
-            controllerAs: 'vm'
+        .state('root.appLayout.checkIn', {
+          url: '/checkIn',
+          templateUrl: 'app/main/checkIn/checkIn.html',
+          controller: 'CheckInController',
+          controllerAs: 'vm'
         });
     }
 })();

@@ -23,9 +23,9 @@
             var loginPromise = LoginService.PostLogin(userObject);
             loginPromise.then(function (data) {
                 setAuthenticationData('authenticationData', {
-                    accessToken: data.access_token,
-                    userName: data.UserName,
-                    accessTokenExpires: data[".expires"]
+                    accessToken: data.token,
+                    user: data.user,
+                    accessTokenExpires: data.expires
                 });
             });
 

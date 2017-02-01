@@ -19,7 +19,7 @@
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #686e75;
+    background: #EF6C00;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -91,7 +91,7 @@
 .sidebar-nav li a:hover {
     text-decoration: none;
     color: #fff;
-    background:  #94c947; /*rgba(255,255,255,0.2);*/
+    background:  #FF9800; /*rgba(255,255,255,0.2);*/
 }
 
 .sidebar-nav li a:active,
@@ -100,7 +100,7 @@
 }
 
 .sidebar-nav li.active a {
-     background: #94c947;  
+     background: #FF9800;
 }
 
 
@@ -115,7 +115,7 @@
 }
 
 .sidebar-nav > .sidebar-brand a:hover {
-    color: #94c947; /*#fff;*/
+    color: #FF9800; /*#fff;*/
     background: none;
 }
 

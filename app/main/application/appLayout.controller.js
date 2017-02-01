@@ -5,16 +5,17 @@
         .module('app')
         .controller('AppLayoutController', AppLayoutController);
 
-    AppLayoutController.$inject = ['$scope', '$state', '$location', '$uibModal', 'AuthenticationService', 'CurrentUserService', 'FlightBoardService'];
+    AppLayoutController.$inject = ['$scope', '$state', '$location', '$uibModal', 'AuthenticationService', 'CurrentUserService'];
 
-    function AppLayoutController($scope, $state, $location, $uibModal, AuthenticationService, CurrentUserService, FlightBoardService) {
+    function AppLayoutController($scope, $state, $location, $uibModal, AuthenticationService, CurrentUserService) {
         /* jshint validthis:true */
         var vm = this;
         vm.isSideNavClosed = false;
         vm.state = $state;
 
-        vm.userName = AuthenticationService.GetLocalDataStorage('authenticationData').userName;
+        vm.authenticationData = AuthenticationService.GetLocalDataStorage('authenticationData');
         vm.title = 'AppLayout Controller';
+        vm.userName = undefined;
 
         vm.Logout = logOut;
         vm.Open = open;
@@ -22,6 +23,9 @@
         activate();
 
         function activate() {
+            vm.userName = vm.authenticationData.user.username;
+            console.log(vm.userName);
+            console.log("hello");
             setUp();
         }
 

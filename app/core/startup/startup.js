@@ -19,9 +19,9 @@
         .module('app')
         .run(runBlock);
 
-    runBlock.$inject = ['$rootScope', '$state', '$timeout', 'AuthenticationService', 'FlightBoardService'];
+    runBlock.$inject = ['$rootScope', '$state', '$timeout', 'AuthenticationService'];
 
-    function runBlock($rootScope, $state, $timeout, AuthenticationService, FlightBoardService) {
+    function runBlock($rootScope, $state, $timeout, AuthenticationService) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
 
             var userAuthentication = AuthenticationService.GetLocalDataStorage("authenticationData");
@@ -57,14 +57,14 @@
                 });
             }
 
-            if (userAuthentication && toState.name == 'root.appLayout.flightBoard' && (FlightBoardService.TriggerModal('root.appLayout.flightBoard'))) {
+          /*  if (userAuthentication && toState.name == 'root.appLayout.board') {
                 event.preventDefault();
                 $timeout(function () {
                     if (fromState.name !== 'root.appLayout.flightBoard') {
                         $state.go('root.appLayout.dashboard');
                     }
                 });
-            }
+            } */
         });
     }
 })();

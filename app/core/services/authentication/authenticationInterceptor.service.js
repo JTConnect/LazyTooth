@@ -9,7 +9,7 @@
 
     function AuthenticationInterceptorService($q, $injector, $window, $timeout, localStorageService) {
         return {
-            request: _request,
+            request: _request
         };
 
         function _request(config) {
@@ -18,7 +18,7 @@
             var authenticationData = localStorageService.get('authenticationData');
         
             if (authenticationData) {
-                config.headers.Authorization = 'Bearer ' + authenticationData.accessToken;
+                config.headers["x-access-token"] = authenticationData.accessToken;
             }
 
             return config;

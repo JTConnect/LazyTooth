@@ -1,68 +1,77 @@
-﻿<div class="row">
-    <div class="col-sm-12">
-        <h1>Dashboard</h1>
-        <hr />
-    </div>
-</div>
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="startContainer ">
 
-<div class="row">
-    <div class="col-sm-4 col-xs-12">
-        <div class="baseWidget cursor-pointer" ng-click="vm.displaySelect = !vm.displaySelect">
-            Select a Base ({{vm.selected.Iata}})
-            <span class="pull-right cursor-pointer">
-                <i ng-class="{'fa fa-chevron-circle-down':!vm.displaySelect , 'fa fa-chevron-circle-up': vm.displaySelect }"></i>
-            </span>
-        </div>
-        <div ng-show="vm.displaySelect" class="animate-show"> 
-            <div>
-                <input type="text"
-                       placeholder="Search for a base"
-                       ng-model="vm.selected"
-                       uib-typeahead="base as base.Iata for base in vm.bases | filter:{Iata: $viewValue} | limitTo:8"
-                       typeahead-on-select="vm.BaseSelected($item, $model, $label)"
-                       class="form-control" focus-me="vm.displaySelect" />
+                <div class="modernBox start">
+                    <div class="startPhotoContainer" style="background-color: #00bcd4">
+                        <div class="text">Welcome</div>
+                    </div>
+                    <div class="startContent">
+                        <div class="content">
+                            Start the electronic check-in system that your users will love.
+                        </div>
+
+                        <div class="getStarted">
+                            <div class="cursor-pointer" ui-sref="root.appLayout.checkIn">GET STARTED</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
-    <div class="col-sm-4 col-xs-12" ng-show="vm.base.Iata.length > 0">
-        <div class="baseWidget cursor-pointer" ng-click="vm.GenerateReservationReport()">
-                <span class="text-center">Generate {{vm.base.Iata}} Reservations Report</span>
-            <span class="pull-right cursor-pointer">
-                <i class="fa fa-download" aria-hidden="true"></i>
-            </span>          
+    <div class="mTop-20"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="startContainer" >
+                <div class="modernBox start">
+                    <div class="startPhotoContainer" style="background-color: #8bc34a">
+                        <div class="text">Enterprise BI Reports</div>
+                    </div>
+                    <div class="startContent">
+                        <div class="content">
+                            Take advantage of all the reporting tools available that will truly help you visualize your data.
+                        </div>
+
+                        <div class="getStarted">
+                            <div class="cursor-pointer" ui-sref="root.appLayout.checkIn">GET STARTED</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mTop-20"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="startContainer ">
+                <div class="modernBox start">
+                    <div class="startPhotoContainer" style="background-color: #ff9800" >
+                        <div class="text">Administration</div>
+                    </div>
+                    <div class="startContent">
+                        <div class="content">
+                            Feel in control by always managing your content and adjusting your configurations.
+                        </div>
+
+                        <div class="getStarted">
+                            <div class="cursor-pointer" ui-sref="root.appLayout.checkIn">GET STARTED</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<hr />
 
-<div class="row">
-    <div class="col-sm-12">
-        <ul class="dashboardBox">
-            <li class="sigBlueCombo cursor-pointer" ng-click="vm.NavigateTo('root.appLayout.flightBoard')">
-                <div class="pull-left"><i class="fa fa-plane fa-4x"></i></div>
-                <div class="dashBoardText pull-right cursor-pointer">
-                    FlightBoard
-                </div>
-                <div class="clearfix"></div>
-            </li>
-            <li class="sigGreenCombo" ng-click="vm.NavigateTo('root.appLayout.report')">
-                <div class="pull-left"><i class="fa fa-file-text-o fa-4x"></i></div>
-                <div class="dashBoardText pull-right cursor-pointer">
-                    Reports
-                </div>
-                <div class="clearfix"></div>
-            </li>
-            <!--<li class="sigGrayCombo">
-                <div class="pull-left"><i class="fa fa-lock fa-4x"></i></div>
-                <div ng-click="vm.NavigateTo('')" class="dashBoardText pull-right cursor-pointer">
-                    Admin
-                </div>
-                <div class="clearfix"></div>
-            </li>-->
-        </ul>
-    </div>
-</div>
+
+<!--Image needs to be url: ('Content/Imagess')-->
+
+
+
+
 
 
 

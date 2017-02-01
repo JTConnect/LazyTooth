@@ -1,29 +1,28 @@
 html,
 body {
-    font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
-    color: #686e75
+    font-family: roboto;
+    color:#5e5e5e; /**#686e75; */
+    background-color: #fafafa;
 }
 
-
-
-
 .navbar-default {
-    background-color: white;
+    background-color: #2196F3;
     border-color: rgba(34, 34, 34, 0.05);
-    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-family: roboto; /*'Open Sans', 'Helvetica Neue', Arial, sans-serif; */
     -webkit-transition: all 0.35s;
     -moz-transition: all 0.35s;
     transition: all 0.35s;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3)
 }
 .navbar-default .navbar-header .navbar-brand {
-    color: #00bfff;
+    color: white;/*#00bfff;*/
     font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
     font-weight: 700;
     text-transform: uppercase;
 }
 .navbar-default .navbar-header .navbar-brand:hover,
 .navbar-default .navbar-header .navbar-brand:focus {
-    color: #009ACC;
+    color: #FFFFFF;
 }
 .navbar-default .navbar-header .navbar-toggle {
     font-weight: 700;
@@ -40,11 +39,12 @@ body {
 }
 .navbar-default .nav > li > a:hover,
 .navbar-default .nav > li > a:focus:hover {
-    color: #00bfff;
+    color: #FFFFFF;
+    cursor: pointer;
 }
 .navbar-default .nav > li.active > a,
 .navbar-default .nav > li.active > a:focus {
-    color: #00bfff !important;
+    color: #FFFFFF !important;
     background-color: transparent;
 }
 .navbar-default .nav > li.active > a:hover,
@@ -52,10 +52,19 @@ body {
     background-color: transparent;
 }
 
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+    background-color: #2196F3;
+    color: #FFFFFF;
+}
+
+.navbar-default .nav > li > a, .navbar-default .nav > li > a:focus {
+    color: white;
+}
+
 
 @media (min-width: 768px) {
     .navbar-default {
-        background-color: transparent;
+        background-color: #2196F3;
         border-color: rgba(255, 255, 255, 0.3);
     }
     .navbar-default .navbar-header .navbar-brand {
@@ -86,7 +95,7 @@ body {
     }
     .navbar-default.affix .navbar-header .navbar-brand:hover,
     .navbar-default.affix .navbar-header .navbar-brand:focus {
-        color: #009ACC;
+        color: #ffffff;
     }
     .navbar-default.affix .nav > li > a,
     .navbar-default.affix .nav > li > a:focus {
@@ -97,6 +106,16 @@ body {
         color: #009ACC;
     }
 }
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #FFFFFF;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #FFFFFF;
+    }
+}
+
 
 
 .materialHeader {
@@ -127,14 +146,95 @@ body {
     padding: 30px;
 }
 
-.w-100 {
-    width: 100%;
-}
 
 .bella {
-    background-color: #FF9800;
+    background-color: #2196F3;
     color: white;
 }
 
+.bella:hover {
+    color: #e9eeee;
+}
 
+.bella:focus {
+    color: #e9eeee;
+}
+
+.bella-dark {
+    background-color: #EF6C00;
+    color: white;
+}
+
+.question .mTop-30 {
+    margin-top: 30px;
+}
+
+.modernBox {
+    background: #fff;
+    margin-bottom: 10px;
+    border-radius: 2px;
+    display: inline-block;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.modernBox.questionCard {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+}
+
+.questionContainer {
+    max-width: 550px;
+    margin: 95px auto;
+}
+
+.startContainer {
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+
+.modernBox.start {
+    width: 100%;
+    height: auto;
+}
+
+.modernBox.start .startPhotoContainer {
+    height: 75px;
+    /*background-image: url('../../Images/hotel.jpg'); */
+    background-color: #2196F3;
+    border-bottom: 1px solid #ddd;
+}
+
+.modernBox.start .startPhotoContainer .text {
+    position: absolute;
+    padding: 34px 0px 0px 10px;
+    color: white;
+    font-size: 25px;
+}
+
+.modernBox.start .content {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.modernBox.start .getStarted {
+    padding-top: 10px;
+    padding-left: 13px;
+    font-size: 15px;
+    color: #2196F3;
+}
+
+.modernBox.start .startContent {
+    padding: 10px;
+}
+
+
+.modernBox.start .startPhotoContainer >img {
+    max-height: 150px;
+}
+
+.mTop-20 {
+    margin-top: 20px;
+}
 
