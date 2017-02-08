@@ -68,15 +68,15 @@
         function fetchMe(startDateTime, endDate) {
             var timeZoneOffset = moment().format("Z");
 
-            var totalUsage =  ReportService.getFacilityUsage({startDateTime: startDateTime, endDate: endDate, setEven: 1, response: "", questionid_fk:1, timeZoneOffset : timeZoneOffset});
-            var poolUsage =   ReportService.getFacilityUsage({startDateTime: startDateTime, endDate: endDate, setEven: 0, response: "Pool", questionid_fk:3, timeZoneOffset : timeZoneOffset});
-            var gymUsage =   ReportService.getFacilityUsage({startDateTime: startDateTime, endDate: endDate, setEven: 0, response: "Gym", questionid_fk:3, timeZoneOffset : timeZoneOffset});
+            var totalUsage =  ReportService.getFacilityUsage({startDateTime: startDateTime, endDate: endDate, setEven: 1, setEven2 : 0, response: "", questionid_fk:1, timeZoneOffset : timeZoneOffset});
+            var poolUsage =   ReportService.getFacilityUsage({startDateTime: startDateTime, endDate: endDate, setEven: 0, setEven2: 0,  response: "Pool", questionid_fk:3, timeZoneOffset : timeZoneOffset});
+            var gymUsage =   ReportService.getFacilityUsage({startDateTime: startDateTime, endDate: endDate, setEven: 0, setEven2: 0, response: "Gym", questionid_fk:3, timeZoneOffset : timeZoneOffset});
+            var users =   ReportService.getFacilityUsage({startDateTime: startDateTime, endDate: endDate, setEven: 1, setEven2: 1, response: "", questionid_fk:0, timeZoneOffset : timeZoneOffset});
 
-            ReportService.r([totalUsage, poolUsage, gymUsage], function(err, res){
+            ReportService.r([totalUsage, poolUsage, gymUsage, users], function(err, res){
                 if(err) {
 
                 }else {
-                    console.log(res);
                     vm.Total.Count = res[0].data.rows.length;
                     vm.Total.Users = res[0].data.rows;
 
@@ -94,6 +94,7 @@
                     var percent3 = (vm.GymPool.Count / vm.Total.Count) * 100;
                     vm.GymPool.Percent = Math.round(percent3 * 10) / 10;
 
+                    vm.Total.Users = ReportService.parseUsers(res[3].data.rows);
                 }
             });
         }

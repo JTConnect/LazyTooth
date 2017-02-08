@@ -41,9 +41,29 @@
     </form>
 
 
-    <div class="page-header">
-        <h1>Total Users - <small>{{vm.Total.Count}}</small></h1>
+    <div class="page-header" ng-click="vm.openUsers = !vm.openUsers;">
+        <h1>Total Users - <small style="color:#0275d8;cursor: pointer;">{{vm.Total.Count}}</small></h1>
     </div>
+
+    <div class="table-responsive" ng-show="vm.openUsers">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th>Last Name</th>
+                    <th>House Number</th>
+                    <th>Facility</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in vm.Total.Users">
+                    <td>{{user.name}}</td>
+                    <td>{{user.houseNumber}}</td>
+                    <td>{{user.facility}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 
     <div class="page-header">
         <h1>Pool/Gym Usage - <small>{{ vm.GymPool.Percent}} %</small></h1>

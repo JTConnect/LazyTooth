@@ -1174,15 +1174,15 @@ angular.module('app').value('cgBusyDefaults', {
         function fetchMe(startDateTime, endDate) {
             var timeZoneOffset = moment().format("Z");
 
-            var totalUsage =  ReportService.getFacilityUsage({startDateTime: startDateTime, endDate: endDate, setEven: 1, response: "", questionid_fk:1, timeZoneOffset : timeZoneOffset});
-            var poolUsage =   ReportService.getFacilityUsage({startDateTime: startDateTime, endDate: endDate, setEven: 0, response: "Pool", questionid_fk:3, timeZoneOffset : timeZoneOffset});
-            var gymUsage =   ReportService.getFacilityUsage({startDateTime: startDateTime, endDate: endDate, setEven: 0, response: "Gym", questionid_fk:3, timeZoneOffset : timeZoneOffset});
+            var totalUsage =  ReportService.getFacilityUsage({startDateTime: startDateTime, endDate: endDate, setEven: 1, setEven2 : 0, response: "", questionid_fk:1, timeZoneOffset : timeZoneOffset});
+            var poolUsage =   ReportService.getFacilityUsage({startDateTime: startDateTime, endDate: endDate, setEven: 0, setEven2: 0,  response: "Pool", questionid_fk:3, timeZoneOffset : timeZoneOffset});
+            var gymUsage =   ReportService.getFacilityUsage({startDateTime: startDateTime, endDate: endDate, setEven: 0, setEven2: 0, response: "Gym", questionid_fk:3, timeZoneOffset : timeZoneOffset});
+            var users =   ReportService.getFacilityUsage({startDateTime: startDateTime, endDate: endDate, setEven: 1, setEven2: 1, response: "", questionid_fk:0, timeZoneOffset : timeZoneOffset});
 
-            ReportService.r([totalUsage, poolUsage, gymUsage], function(err, res){
+            ReportService.r([totalUsage, poolUsage, gymUsage, users], function(err, res){
                 if(err) {
 
                 }else {
-                    console.log(res);
                     vm.Total.Count = res[0].data.rows.length;
                     vm.Total.Users = res[0].data.rows;
 
@@ -1200,6 +1200,7 @@ angular.module('app').value('cgBusyDefaults', {
                     var percent3 = (vm.GymPool.Count / vm.Total.Count) * 100;
                     vm.GymPool.Percent = Math.round(percent3 * 10) / 10;
 
+                    vm.Total.Users = ReportService.parseUsers(res[3].data.rows);
                 }
             });
         }
@@ -1232,7 +1233,8 @@ angular.module('app').value('cgBusyDefaults', {
     function ReportService(HttpRequestService, AuthenticationSettings, $q) {
         return {
             getFacilityUsage : getFacilityUsage,
-            r : r
+            r : resolvePromises,
+            parseUsers : parseUsers
         };
 
         function getFacilityUsage(object) {
@@ -1243,7 +1245,30 @@ angular.module('app').value('cgBusyDefaults', {
             });
         }
 
-        function r(promises, callback) {
+        function parseUsers(users) {
+            var object = {};
+
+            for(var i in users) {
+                var key = users[i].visitid_fk;
+                if(object[key]) {
+                    object[key].push(users[i]);
+                }else {
+                    object[key] = [users[i]];
+                }
+            }
+
+            var array = [];
+
+            for(var j in object) {
+                var visit = object[j];
+                var displayObject = {name: visit[0].response, houseNumber: visit[1].response, facility: visit[2].response};
+                array.push(displayObject);
+            }
+            console.log(array);
+            return array;
+        }
+
+        function resolvePromises(promises, callback) {
             $q.all(promises).then(function(res) {
                 if(res) {
                     callback(null, res);
@@ -1254,6 +1279,7 @@ angular.module('app').value('cgBusyDefaults', {
                 callback(err);
             });
         }
+
     }
 
 })();
