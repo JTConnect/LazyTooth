@@ -30,7 +30,8 @@ var scripts = ['app/*js',
       'app/main/login/*js',
       'app/main/simpleLogin/*js',
       'app/main/checkin/*js',
-      'app/main/rootLayout/*js'];
+      'app/main/rootLayout/*js',
+      'app/main/report/*js'];
 
 var allMinified = 'dist/js/allminified.min.js';
 var jsLocation = 'dist/js';

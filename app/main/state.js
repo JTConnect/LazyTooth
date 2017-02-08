@@ -52,6 +52,13 @@
           templateUrl: 'app/main/checkIn/checkIn.html',
           controller: 'CheckInController',
           controllerAs: 'vm'
-        });
+        })
+
+            .state('root.appLayout.report',{
+                url: '/report',
+                templateUrl: 'app/main/report/report.html',
+                controller: 'ReportController',
+                controllerAs: 'vm'
+            });
     }
 })();

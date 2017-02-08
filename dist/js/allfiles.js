@@ -637,7 +637,14 @@ angular.module('app').value('cgBusyDefaults', {
           templateUrl: 'app/main/checkIn/checkIn.html',
           controller: 'CheckInController',
           controllerAs: 'vm'
-        });
+        })
+
+            .state('root.appLayout.report',{
+                url: '/report',
+                templateUrl: 'app/main/report/report.html',
+                controller: 'ReportController',
+                controllerAs: 'vm'
+            });
     }
 })();
 (function () {
@@ -647,9 +654,9 @@ angular.module('app').value('cgBusyDefaults', {
         .module('app')
         .controller('AppLayoutController', AppLayoutController);
 
-    AppLayoutController.$inject = ['$scope', '$state', '$location', '$uibModal', 'AuthenticationService', 'CurrentUserService'];
+    AppLayoutController.$inject = ['$scope', '$state', '$location', 'AuthenticationService', 'CurrentUserService'];
 
-    function AppLayoutController($scope, $state, $location, $uibModal, AuthenticationService, CurrentUserService) {
+    function AppLayoutController($scope, $state, $location, AuthenticationService, CurrentUserService) {
         /* jshint validthis:true */
         var vm = this;
         vm.isSideNavClosed = false;
@@ -930,6 +937,9 @@ angular.module('app').value('cgBusyDefaults', {
 
 
 })(); 
+/**
+ * Created by Frankfernandez on 1/31/17.
+ */
 (function () {
     'use strict';
 
@@ -953,6 +963,8 @@ angular.module('app').value('cgBusyDefaults', {
         activate();
 
         function activate() {
+            setDefault();
+
             var questionPromise = CheckInService.GetQuestions();
             questionPromise.then(function(data) {
                 if(data && data.data) {
@@ -972,13 +984,16 @@ angular.module('app').value('cgBusyDefaults', {
 
                 var response = {
                     response: vm.question1Response,
-                    questionid_fk: vm.question1.questionid
+                    questionid_fk: vm.question1.questionid,
+                    type: getCheckinType(),
+                    visitid_fk: getVisitId()
                 };
 
                 var postQuestionPromise = CheckInService.PostQuestion(response);
-                postQuestionPromise.then(function(data) {
-                    console.log(data);
+                postQuestionPromise.then(function(res) {
+                    console.log(res);
                     vm.showQuestion2 = !vm.showQuestion2;
+                    setVisitId(res && res.data ? res.data.visitid : 0);
                 });
             }
         }
@@ -988,7 +1003,9 @@ angular.module('app').value('cgBusyDefaults', {
                 vm.showQuestion2 = !vm.showQuestion2;
                 var response = {
                     response: vm.question2Response,
-                    questionid_fk: vm.question2.questionid
+                    questionid_fk: vm.question2.questionid,
+                    type: getCheckinType(),
+                    visitid_fk: getVisitId()
                 };
 
                 var postQuestionPromise = CheckInService.PostQuestion(response);
@@ -1006,7 +1023,9 @@ angular.module('app').value('cgBusyDefaults', {
                 vm.showQuestion3 = !vm.showQuestion3;
                 var response = {
                     response: vm.question3Response,
-                    questionid_fk: vm.question3.questionid
+                    questionid_fk: vm.question3.questionid,
+                    type: getCheckinType(),
+                    visitid_fk: getVisitId()
                 };
 
                 var postQuestionPromise = CheckInService.PostQuestion(response);
@@ -1018,9 +1037,28 @@ angular.module('app').value('cgBusyDefaults', {
                 });
             }
         }
+
+        function getCheckinType() {
+            return "Kiosk";
+        }
+
+        function getVisitId() {
+            return vm.VisitId;
+        }
+
+        function setVisitId(visitid) {
+            vm.VisitId = visitid;
+        }
+
+        function setDefault() {
+            vm.VisitId = 0;
+        }
     }
 })();
 
+/**
+ * Created by Frankfernandez on 1/31/17.
+ */
 (function () {
     'use strict';
 
@@ -1053,6 +1091,7 @@ angular.module('app').value('cgBusyDefaults', {
         }
     }
 })();
+
 (function () {
     'use strict';
 
@@ -1063,4 +1102,158 @@ angular.module('app').value('cgBusyDefaults', {
     RootController.$inject = [];
 
     function RootController() { }
+})();
+
+/**
+ * Created by RobertoRolon on 2/5/17.
+ */
+
+(function() {
+
+    angular
+        .module('app')
+        .controller('ReportController', ReportController);
+
+    ReportController.$inject = ['ReportService'];
+
+    function ReportController(ReportService) {
+        var vm = this;
+
+        vm.SubmitFilterForm = SubmitFilterForm;
+
+        function SubmitFilterForm() {
+            if(vm.FilterForm.$invalid) return;
+
+            var startTime = moment(vm.FilterObject.startTime);
+            var hour = startTime.get('hour');
+            var minute = startTime.get('minute');
+
+            var startDate = moment(vm.FilterObject.startDate);
+            startDate.set('hour', hour);
+            startDate.set('minute', minute);
+
+            var startDateTime = startDate.format("YYYY-MM-DD H:mm");
+            var endTime = startDate.format("YYYY-MM-DD");
+
+            fetchMe(startDateTime, endTime);
+
+        }
+
+        function setInitialObjects() {
+            //set filter inputs here
+            vm.FilterObject = {startDate: null, startTime: null};
+
+            vm.Total = {Count: 0, Users:[]};
+            vm.Pool = {Count: 0, Users: [], Percent: 0};
+            vm.Gym = {Count: 0, Users: [], Percent: 0};
+            vm.GymPool = {Count: 0, Percent: 0};
+        }
+
+        function setDatePickerAndTime() {
+            vm.FilterObject.startDate = moment().format("MM/DD/YYYY");
+            var startTime = moment();
+            startTime.set('hour', 6);
+            startTime.set('minute', 0);
+            vm.FilterObject.startTime = startTime;
+        }
+
+        function getInitialTimes() {
+            var startDate = moment().set('hour', 6).set('minute', 0);
+
+            return [startDate.format("YYYY-MM-DD H:mm"), startDate.format("YYYY-MM-DD")];
+        }
+
+        function fetchFacilityUsage(object, callback) {
+            ReportService.getFacilityUsage(object).then(function(data) {
+                callback(null,data);
+            }).catch(function(err) {
+                callback(err);
+            });
+        }
+
+        function fetchMe(startDateTime, endDate) {
+            var timeZoneOffset = moment().format("Z");
+
+            var totalUsage =  ReportService.getFacilityUsage({startDateTime: startDateTime, endDate: endDate, setEven: 1, response: "", questionid_fk:1, timeZoneOffset : timeZoneOffset});
+            var poolUsage =   ReportService.getFacilityUsage({startDateTime: startDateTime, endDate: endDate, setEven: 0, response: "Pool", questionid_fk:3, timeZoneOffset : timeZoneOffset});
+            var gymUsage =   ReportService.getFacilityUsage({startDateTime: startDateTime, endDate: endDate, setEven: 0, response: "Gym", questionid_fk:3, timeZoneOffset : timeZoneOffset});
+
+            ReportService.r([totalUsage, poolUsage, gymUsage], function(err, res){
+                if(err) {
+
+                }else {
+                    console.log(res);
+                    vm.Total.Count = res[0].data.rows.length;
+                    vm.Total.Users = res[0].data.rows;
+
+                    vm.Pool.Count = res[1].data.rows.length;
+                    vm.Pool.Users = res[1].data.rows;
+                    var percent = (vm.Pool.Count / vm.Total.Count) * 100;
+                    vm.Pool.Percent = Math.round(percent * 10) / 10;
+
+                    vm.Gym.Count = res[2].data.rows.length;
+                    vm.Gym.Users = res[2].data.rows;
+                    var percent2 = (vm.Gym.Count / vm.Total.Count) * 100;
+                    vm.Gym.Percent = Math.round(percent2 * 10) / 10;
+
+                    vm.GymPool.Count = vm.Pool.Count + vm.Gym.Count;
+                    var percent3 = (vm.GymPool.Count / vm.Total.Count) * 100;
+                    vm.GymPool.Percent = Math.round(percent3 * 10) / 10;
+
+                }
+            });
+        }
+
+
+        function activate() {
+            setInitialObjects();
+            setDatePickerAndTime();
+
+            var start = getInitialTimes();
+            //fetchMe("2017-01-30 23:07", "2017-01-30");
+            fetchMe(start[0], start[1]);
+        }
+
+
+        activate();
+    }
+
+})();
+/**
+ * Created by RobertoRolon on 2/5/17.
+ */
+
+(function() {
+
+    angular
+        .module('app')
+        .factory('ReportService', ['HttpRequestService', 'AuthenticationSettings', '$q', ReportService]);
+
+    function ReportService(HttpRequestService, AuthenticationSettings, $q) {
+        return {
+            getFacilityUsage : getFacilityUsage,
+            r : r
+        };
+
+        function getFacilityUsage(object) {
+            return HttpRequestService.Go({
+                method: 'POST',
+                url: AuthenticationSettings.ResourcesAPI + "api/checkin/getFacilityUsage",
+                data: object
+            });
+        }
+
+        function r(promises, callback) {
+            $q.all(promises).then(function(res) {
+                if(res) {
+                    callback(null, res);
+                }else {
+                    callback({errorMessage : "No data!"});
+                }
+            }).catch(function(err) {
+                callback(err);
+            });
+        }
+    }
+
 })();

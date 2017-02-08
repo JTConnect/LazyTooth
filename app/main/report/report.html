@@ -1,0 +1,61 @@
+<div class="jumbotron" style="background-color:#0275d8">
+    <div class="container" style="color:#fff">
+        <h1> Facility Usage</h1>
+    </div>
+</div>
+
+<div class="container">
+
+    <form novalidate name="vm.FilterForm" ng-submit="vm.SubmitFilterForm();">
+
+        <div class="row">
+
+            <div class="col-xs-6">
+                <label>Start Date</label>
+            <span class="input-group">
+                <input type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="vm.FilterObject.startDate" is-open="openIsOpened" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="openIsOpened = true; $event.stopPropagation();">
+                        <i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </span>
+            </div>
+
+            <div class="col-xs-6">
+                <timepicker ng-model="vm.FilterObject.startTime" style="position:relative;top:-8px;"></timepicker>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-4">
+                <button class="btn btn-lg btn-primary" type="submit">Submit</button>
+            </div>
+        </div>
+
+        <div>
+
+        </div>
+
+    </form>
+
+
+    <div class="page-header">
+        <h1>Total Users - <small>{{vm.Total.Count}}</small></h1>
+    </div>
+
+    <div class="page-header">
+        <h1>Pool/Gym Usage - <small>{{ vm.GymPool.Percent}} %</small></h1>
+    </div>
+
+    <div class="page-header">
+        <h1>Pool Usage - <small>{{ vm.Pool.Percent}} %</small></h1>
+    </div>
+
+    <div class="page-header">
+        <h1>Gym Usage - <small>{{ vm.Gym.Percent}} %</small></h1>
+    </div>
+
+</div>
+

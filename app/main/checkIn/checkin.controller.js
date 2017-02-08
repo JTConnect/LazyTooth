@@ -24,6 +24,8 @@
         activate();
 
         function activate() {
+            setDefault();
+
             var questionPromise = CheckInService.GetQuestions();
             questionPromise.then(function(data) {
                 if(data && data.data) {
@@ -43,13 +45,16 @@
 
                 var response = {
                     response: vm.question1Response,
-                    questionid_fk: vm.question1.questionid
+                    questionid_fk: vm.question1.questionid,
+                    type: getCheckinType(),
+                    visitid_fk: getVisitId()
                 };
 
                 var postQuestionPromise = CheckInService.PostQuestion(response);
-                postQuestionPromise.then(function(data) {
-                    console.log(data);
+                postQuestionPromise.then(function(res) {
+                    console.log(res);
                     vm.showQuestion2 = !vm.showQuestion2;
+                    setVisitId(res && res.data ? res.data.visitid : 0);
                 });
             }
         }
@@ -59,7 +64,9 @@
                 vm.showQuestion2 = !vm.showQuestion2;
                 var response = {
                     response: vm.question2Response,
-                    questionid_fk: vm.question2.questionid
+                    questionid_fk: vm.question2.questionid,
+                    type: getCheckinType(),
+                    visitid_fk: getVisitId()
                 };
 
                 var postQuestionPromise = CheckInService.PostQuestion(response);
@@ -77,7 +84,9 @@
                 vm.showQuestion3 = !vm.showQuestion3;
                 var response = {
                     response: vm.question3Response,
-                    questionid_fk: vm.question3.questionid
+                    questionid_fk: vm.question3.questionid,
+                    type: getCheckinType(),
+                    visitid_fk: getVisitId()
                 };
 
                 var postQuestionPromise = CheckInService.PostQuestion(response);
@@ -88,6 +97,22 @@
                     console.log(err);
                 });
             }
+        }
+
+        function getCheckinType() {
+            return "Kiosk";
+        }
+
+        function getVisitId() {
+            return vm.VisitId;
+        }
+
+        function setVisitId(visitid) {
+            vm.VisitId = visitid;
+        }
+
+        function setDefault() {
+            vm.VisitId = 0;
         }
     }
 })();

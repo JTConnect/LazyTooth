@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppLayoutController', AppLayoutController);
 
-    AppLayoutController.$inject = ['$scope', '$state', '$location', '$uibModal', 'AuthenticationService', 'CurrentUserService'];
+    AppLayoutController.$inject = ['$scope', '$state', '$location', 'AuthenticationService', 'CurrentUserService'];
 
-    function AppLayoutController($scope, $state, $location, $uibModal, AuthenticationService, CurrentUserService) {
+    function AppLayoutController($scope, $state, $location, AuthenticationService, CurrentUserService) {
         /* jshint validthis:true */
         var vm = this;
         vm.isSideNavClosed = false;
