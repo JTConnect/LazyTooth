@@ -999,7 +999,7 @@ angular.module('app').value('cgBusyDefaults', {
         }
 
         function next3() {
-            if (vm.question2Response && vm.question2Response.length > 0) {
+            if (vm.question2Response && !isNaN(vm.question2Response)) {
                 vm.showQuestion2 = !vm.showQuestion2;
                 var response = {
                     response: vm.question2Response,
@@ -1019,7 +1019,7 @@ angular.module('app').value('cgBusyDefaults', {
         }
 
         function next4() {
-            if (vm.question2Response && vm.question2Response.length > 0) {
+            if (vm.question2Response && !isNaN(vm.question2Response)) {
                 vm.showQuestion3 = !vm.showQuestion3;
                 var response = {
                     response: vm.question3Response,
@@ -1261,7 +1261,11 @@ angular.module('app').value('cgBusyDefaults', {
 
             for(var j in object) {
                 var visit = object[j];
-                var displayObject = {name: visit[0].response, houseNumber: visit[1].response, facility: visit[2].response};
+                var displayObject = {name: visit[0] ? visit[0].response : "N/A", houseNumber: visit[1] ? visit[1].response : "N/A", facility: visit[2] ? visit[2].response : "N/A"};
+
+                if(visit[0])
+                    displayObject.createdonlocaltime = moment.parseZone(visit[0].createdonlocaltime).format("h:mm a");
+
                 array.push(displayObject);
             }
             console.log(array);

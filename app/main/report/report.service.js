@@ -39,7 +39,11 @@
 
             for(var j in object) {
                 var visit = object[j];
-                var displayObject = {name: visit[0].response, houseNumber: visit[1].response, facility: visit[2].response};
+                var displayObject = {name: visit[0] ? visit[0].response : "N/A", houseNumber: visit[1] ? visit[1].response : "N/A", facility: visit[2] ? visit[2].response : "N/A"};
+
+                if(visit[0])
+                    displayObject.createdonlocaltime = moment.parseZone(visit[0].createdonlocaltime).format("h:mm a");
+
                 array.push(displayObject);
             }
             console.log(array);

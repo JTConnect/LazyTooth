@@ -60,7 +60,7 @@
         }
 
         function next3() {
-            if (vm.question2Response && vm.question2Response.length > 0) {
+            if (vm.question2Response && !isNaN(vm.question2Response)) {
                 vm.showQuestion2 = !vm.showQuestion2;
                 var response = {
                     response: vm.question2Response,
@@ -80,7 +80,7 @@
         }
 
         function next4() {
-            if (vm.question2Response && vm.question2Response.length > 0) {
+            if (vm.question2Response && !isNaN(vm.question2Response)) {
                 vm.showQuestion3 = !vm.showQuestion3;
                 var response = {
                     response: vm.question3Response,
