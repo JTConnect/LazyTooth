@@ -6,14 +6,14 @@
                 <button type="button"  class="navbar-toggle collapsed" data-toggle="collapse" data-target="#iheart-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" ui-sref="root.appLayout.dashboard"><span class="weight200">Bella</span> Check In</a>
+                <a class="navbar-brand page-scroll" ng-click="vm.NavigateTo('root.appLayout.dashboard')"><span class="weight200">Bella</span> Check In</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="iheart-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" ng-hide="vm.state.is('root.appLayout.checkIn')">
                     <li>
-                        <a ui-sref="root.appLayout.about"><i class="fa fa-file-text-o" aria-hidden="true"></i> Enterprise BI Reporting</a>
+                        <a ui-sref="root.appLayout.report"><i class="fa fa-file-text-o" aria-hidden="true"></i> Enterprise BI Reporting</a>
                     </li>
                     <li>
                         <a ui-sref="root.appLayout.contact"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>

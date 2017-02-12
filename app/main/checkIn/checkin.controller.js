@@ -8,15 +8,16 @@
         .module('app')
         .controller('CheckInController', CheckInController);
 
-    CheckInController.$inject = ['$scope', '$state', 'CheckInService', 'CurrentUserService', 'DateTimeService'];
+    CheckInController.$inject = ['$scope', '$state', 'CheckInService', 'CurrentUserService', 'DateTimeService', '$timeout'];
 
-    function CheckInController($scope, $state, CheckInService, CurrentUserService, DateTimeService) {
+    function CheckInController($scope, $state, CheckInService, CurrentUserService, DateTimeService, $timeout) {
         /* jshint validthis:true */
         var vm = this;
         vm.title = 'CheckIn Controller';
         vm.showQuestion1 = true;
         vm.showQuestion2 = false;
         vm.showQuestion3 = false;
+        vm.displayMessage = false;
         vm.Next2 = next2;
         vm.Next3 = next3;
         vm.Next4 = next4;
@@ -93,6 +94,13 @@
                 postQuestionPromise.then(function (data) {
                     console.log(data);
                     vm.showQuestion4 = !vm.showQuestion4;
+                    vm.displayMessage = true;
+                    $timeout(function(){
+                        vm.displayMessage = false;
+                        vm.showQuestion1 = true;
+                        setDefault();
+                    },3000);
+
                 }).catch(function(err) {
                     console.log(err);
                 });
@@ -113,6 +121,10 @@
 
         function setDefault() {
             vm.VisitId = 0;
+            vm.question1Response = "";
+            vm.question2Response = "";
+            vm.question3Response = "";
+            vm.question4Response = "";
         }
     }
 })();

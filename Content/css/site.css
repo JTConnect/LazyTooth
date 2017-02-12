@@ -180,6 +180,17 @@ body {
 .modernBox.questionCard {
     width: 100%;
     height: auto;
+}
+
+.modernBox.questionCard .header {
+    width: 100%;
+    padding: 10px;
+    background-color: #2196F3;
+    color: white;
+}
+
+.modernBox.questionCard .content {
+    width: 100%;
     padding: 10px;
 }
 
@@ -236,5 +247,16 @@ body {
 
 .mTop-20 {
     margin-top: 20px;
+}
+
+.btn-outline-primary {
+    color: #2196F3;
+    background-image: none;
+    background-color: transparent;
+    border-color: #2196F3;
+}
+
+.btn-outline-primary:hover {
+    color: #2196F3;
 }
 

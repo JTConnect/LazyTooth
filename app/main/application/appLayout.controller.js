@@ -46,7 +46,10 @@
 
 
         function navigateTo(route) {
-            $state.go(route);
+            console.log(vm.state.is('root.appLayout.checkIn'));
+            if(!vm.state.is('root.appLayout.checkIn')) {
+                $state.go(route);
+            }
         }
 
     }
